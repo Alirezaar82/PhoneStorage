@@ -1,0 +1,66 @@
+{% extends "_base.html" %}
+
+
+{% block title %}
+Product List
+{% endblock title %}
+
+{% block content %}
+    <h1>Product List</h1>
+    <form method="get" action="">
+        <!-- Search by brand name -->
+        <input type="text" name="q" placeholder="Search brand" value="{{ request.GET.q }}">
+        
+        <!-- Filter by Korea nationality -->
+        <div class="filter-group">
+            <label for="korea_search">Korean Brands:</label>
+            <input type="checkbox" name="korea_search" id="korea_search" {% if request.GET.korea_search %}checked{% endif %}>
+        </div>
+        
+        <!-- Filter by matching nationality -->
+        <div class="filter-group">
+            <label for="nationality">Matching Nationality:</label>
+            <input type="checkbox" name="nationality" id="nationality" {% if request.GET.nationality %}checked{% endif %}>
+        </div>
+
+        <button type="submit">Filter</button>
+    </form>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>brand_name</th>
+                <th>model_name</th>
+                <th>brand_nationality</th>
+                <th>color</th>
+                <th>manufacturing_country</th>
+                <th>screen_size</th>
+                <th>status</th>
+                <th>price</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in phones %}
+                <tr>
+                    <td>{{ object.brand_name }}</td>
+                    <td>{{ object.model_name }}</td>
+                    <td>{{ object.brand_nationality }}</td>
+                    <td>{{ object.color }}</td>
+                    <td>{{ object.manufacturing_country }}</td>
+                    <td>{{ object.screen_size }}</td>
+                    <td>{{ object.get_status.label }}</td>
+                    <td>${{ object.price }}</td>
+
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No products found.</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    
+{% endblock content %}
