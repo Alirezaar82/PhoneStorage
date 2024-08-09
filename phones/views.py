@@ -8,7 +8,7 @@ from .models import PhonesModel,PhoneStatustype
 from .forms import PhoneForm
 
 class PhonesListView(ListView):
-    template_name = 'phone/list.html'
+    template_name = 'phone/phone-list.html'
     context_object_name = 'phones'
     def get_queryset(self) -> QuerySet[Any]:
         queryset = PhonesModel.objects.all()
@@ -25,7 +25,7 @@ class PhonesListView(ListView):
         return super().get_context_data(**kwargs)
 
 class PhoneCreatedView(CreateView):
-    template_name = 'Phone/create.html'
+    template_name = 'Phone/phone-create.html'
     queryset = PhonesModel.objects.all()
     form_class = PhoneForm
     
@@ -34,7 +34,7 @@ class PhoneCreatedView(CreateView):
 
 
 class PhoneUpdatedView(UpdateView):
-    template_name = 'Phone/update.html'
+    template_name = 'Phone/phone-update.html'
     queryset = PhonesModel.objects.all()
     form_class = PhoneForm
 
@@ -42,7 +42,7 @@ class PhoneUpdatedView(UpdateView):
         return reverse_lazy("phones:phone-list")
 
 # class PhoneDeleteView(DeleteView):
-#     template_name = 'Phone/delete.html'
+#     template_name = 'Phone/phone-delete.html'
 #     queryset = PhonesModel.objects.all()
 
 #     def get_success_url(self):
